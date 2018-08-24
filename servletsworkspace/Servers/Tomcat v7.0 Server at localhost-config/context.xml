@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+--><!-- The contents of this file will be loaded for each web application --><Context>
+
+    <!-- Default set of monitored resources -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+	<!--
+<Manager  className="org.apache.catalina.session.StandardManager" maxActiveSessions="-1" 
+pathname="C:\sessiondata\mysessions.ser" sessionIdLength="32" > 
+</Manager> -->
+
+<Manager className="org.apache.catalina.session.PersistentManager" maxActiveSessions="-1" maxIdleBackup="-1" minIdleSwap="-1" saveOnRestart="true">
+<Store checkInterval="60" className="org.apache.catalina.session.JDBCStore" connectionURL="jdbc:oracle:thin:hr/hr@127.0.0.1:1521:XE" driverName="oracle.jdbc.driver.OracleDriver" sessionAppCol="APPLICATION_NAME" sessionDataCol="session_data" sessionIdCol="session_id" sessionLastAccessedCol="last_access" sessionMaxInactiveCol="maxinactive" sessionTable="tomcat_session_data" sessionValidCol="valid"/>
+</Manager>
+
+    <!-- Uncomment this to enable Comet connection tacking (provides events
+         on session expiration as well as webapp lifecycle) -->
+    <!--
+    <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
+    -->
+
+	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/myTestDBCP" password="admin" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="system"/>
+	
+</Context>
